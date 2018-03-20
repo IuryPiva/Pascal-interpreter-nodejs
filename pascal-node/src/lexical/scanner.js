@@ -1,4 +1,7 @@
 const tokenTypes = require('./token-types')
+const identifiers = require('./automata/identifiers')
+const numerics = require('./automata/numerics')
+const operators = require('./automata/operators')
 
 let info = {
     row: 1,
@@ -17,8 +20,6 @@ const handleNewLine = function (value, info) {
     info.row++
     console.log('NewLine', value, info.row)
 }
-[1,2,3,4,5,6]
- 0,1
 module.exports = {
     index = function (data) {
         data.map(
@@ -26,27 +27,17 @@ module.exports = {
                 let upperValue = value.toUpperCase()
                 if (upperValue == space) {
                     handleSpace(upperValue)
-                } else
-
-                    if (upperValue == newLine) {
-                        handleNewLine(upperValue)
-                    } else
-
-                        if (isValidLetter(upperValue)) {
-                            handleValidLetter(upperValue)
-                        } else
-
-                            if (isNumeric(upperValue)) {
-                                handleNumeric(upperValue)
-                            } else
-
-                                if (upperValue == quote) {
-                                    handleQuote(upperValue)
-                                } else
-
-                                    if (isOperator(upperValue)) {
-                                        handleOperator(upperValue)
-                                    }
+                } else if (upperValue == newLine) {
+                    handleNewLine(upperValue)
+                } else if (identifiers.isValidLetter(upperValue)) {
+                    identifiers.handleValidLetter(upperValue)
+                } else if (numerics.isNumeric(upperValue)) {
+                    numerics.handleNumeric(upperValue)
+                } else if (upperValue == quote) {
+                    operators.handleQuote(upperValue)
+                } else if (operators.isOperator(upperValue)) {
+                    operators.handleOperator(upperValue)
+                }
             }
         )
 
