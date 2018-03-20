@@ -11,12 +11,12 @@ module.exports = {
         }// IF THE REGEX TO REMOVE COMMENTS ISN'T ALLOW WE SHOULD INCLUDE COMMENTS HERE
     },
     handleOperator: function (value, info) {
-        pointer += value + '';
-        if (mayBeDoubleCharOperator(pointer)) {
-
+        info.token += value + '';
+        if (mayBeDoubleCharOperator(info.token)) {
         } else {
-            console.log('Operator', tokenTypes.operators[value])
-            setNextToken()
+            if(tokenTypes.operators[value]) {
+                console.log('Operator', tokenTypes.operators[value])
+            }
         }
     },
     handleQuote: function (value, info) {
