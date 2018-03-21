@@ -1,9 +1,10 @@
 console.log(Date())
-const fileUtils = require('./src/file-utils')
+const fileUtils = require('./src/utils/file-utils')
+const lexer = require('./src/lexical/lexer')
+const parser = require('./src/lexical/parser')
 const fileData = fileUtils.readFile()
 
-
-const textUtils = require('./src/text-utils')
-const tokenTypes = require('./src/token-types')
-
-textUtils.getCharacters(fileData)
+console.log('Input: ', fileData, 'End of input.')
+let tokens = lexer(fileData)
+console.log('Lexer', tokens)
+// console.log('Parser', parser(tokens))
