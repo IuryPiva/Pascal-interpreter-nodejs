@@ -26,9 +26,7 @@ module.exports = {
         'until': '19',
         'var': '4',
         'while': '16',
-        'writeln': '21'
-    },
-    operators: {
+        'writeln': '21',
         '-': '31',
         ',': '46',
         ';': '47',
