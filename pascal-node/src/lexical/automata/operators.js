@@ -15,12 +15,12 @@ module.exports = {
         if (mayBeDoubleCharOperator(pointer)) {
 
         } else {
-            console.log('Operator', tokenTypes.operators[value])
+            // console.log('Operator', tokenTypes.operators[value])
             setNextToken()
         }
     },
     handleQuote: function (value, info) {
-        console.log('Quote', value, info.row)
+        // console.log('Quote', value, info.row)
     },
     isOperator : function (value, info) {
         return (value in tokenTypes.operators)

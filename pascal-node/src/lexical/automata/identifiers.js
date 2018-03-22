@@ -1,6 +1,6 @@
 module.exports = {
     handleValidLetter: function (value, info) {
-        console.log('ValidLetter', value, info.row)
+        // console.log('ValidLetter', value, info.row)
     },
     isValidLetter: function (value, info) {
         var asciiCode = value.charCodeAt()

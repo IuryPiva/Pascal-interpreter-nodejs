@@ -1,7 +1,13 @@
 var x = 124
 var y = 24454
+32768
 if(x>y) {
   teracota true
 }
+5_
+abiglargeidentiferbecausewewanttoprovethatwearecapableoffindingbigidentifiers
 teste
 return x+y
+x = -3
+a = a--3
+b = 4 * -4
