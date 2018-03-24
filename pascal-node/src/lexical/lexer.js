@@ -1,14 +1,11 @@
+const split = require('split-string');
+
 function replaceOperators(text) {
   return text
     .replace(/\+/g, ' + ')
     .replace(/\*/g, ' * ')
     .replace(/\=/g, ' = ')
     .replace(/\-/g, ' - ')
-    .replace(/\-  \- /g, '- -')
-    .replace(/\+  \- /g, '+ -')
-    .replace(/\=  \- /g, '= -')
-    .replace(/\*  \- /g, '* -')
-    .replace(/\/  \- /g, '/ -')
     .replace(/\,/g, ' , ')
     .replace(/\;/g, ' ; ')
     .replace(/\:/g, ' : ')
@@ -26,9 +23,15 @@ function replaceOperators(text) {
     .replace(/\<  \>/g, ' <> ')
     .replace(/\<  \=/g, ' <= ')
     .replace(/\>  \=/g, ' >= ')
+    .replace(/\r\n/g, ' \r\n ')
 }
 
 module.exports = function (code) {
-  console.log('replace', replaceOperators(code))
-  return replaceOperators(code).split(/[(\r\n) ]/g).filter(String);
+  return split(replaceOperators(code), {
+    brackets: {
+      '\'': '\''
+    },
+    keepQuotes: true,
+    separator: ' '
+  }).filter(String);
 }

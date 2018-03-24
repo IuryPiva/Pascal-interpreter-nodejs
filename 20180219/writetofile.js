@@ -6,5 +6,5 @@ let outputFile = 'olamundo.txt'
 
 fs.writeFile(outputFile, message, (err) => {
     if (err) throw err;
-    console.log('O arquivo foi salvo com sucesso!')
+    // console.log('O arquivo foi salvo com sucesso!')
 })

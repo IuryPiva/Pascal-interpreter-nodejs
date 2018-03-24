@@ -4,8 +4,5 @@ const lexer = require('./src/lexical/lexer')
 const parser = require('./src/lexical/parser')
 const fileData = fileUtils.readFile()
 
-// console.log('Input: ', fileData, 'End of input.')
 let words = lexer(fileData)
-// console.log('Lexer', words)
 parser(words)
-// // console.log('Parser', parser(tokens))
