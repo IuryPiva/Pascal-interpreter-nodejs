@@ -20,7 +20,7 @@ module.exports = {
         }
     },
     handleQuote: function (value, info) {
-        console.log('Quote', value, info.row)
+        // console.log('Quote', value, info.row)
     },
     isOperator : function (value, info) {
         return (value in tokenTypes.operators)

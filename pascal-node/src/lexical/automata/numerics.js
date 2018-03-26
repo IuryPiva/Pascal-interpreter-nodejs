@@ -1,6 +1,6 @@
 module.exports = {
     handleNumeric : function (value, info) {
-        console.log('Numeric', value, info.row)
+        // console.log('Numeric', value, info.row)
         //TODO implemets integer automata
     },
 
