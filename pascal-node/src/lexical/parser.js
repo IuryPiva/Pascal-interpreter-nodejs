@@ -22,7 +22,7 @@ module.exports = function (words) {
         tokens.push({
           word: word,
           line: row,
-          token: 26
+          token: "26"
         })
         // console.log(word, 'at line: ' + row, 'token: ' + 26)
       }
@@ -39,7 +39,7 @@ module.exports = function (words) {
           tokens.push({
             word: word,
             line: row,
-            token: 48
+            token: "48"
           })
           // console.log(word, 'at line: ' + row, 'token: ' + 48)
         }
@@ -51,7 +51,7 @@ module.exports = function (words) {
         tokens.push({
           word: word,
           line: row,
-          token: 25
+          token: "25"
         })
       }
     }

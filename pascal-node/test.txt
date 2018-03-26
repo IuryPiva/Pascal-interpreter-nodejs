@@ -1,4 +1,4 @@
-) Program testeproc1;
+Program testeproc1;
 Var
  X, y, z :integer;
 Procedure P;
