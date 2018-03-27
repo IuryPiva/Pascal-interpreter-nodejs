@@ -56,5 +56,5 @@ module.exports = function (words) {
       }
     }
   }
-  console.table(tokens)
+  return tokens
 }
