@@ -1,0 +1,28 @@
+html,body{
+    height: 100%
+}
+
+#editor {
+    margin: 0;
+    
+    font-size: 14px;
+}
+
+#table {
+    background-color: #2F3129;
+    margin: 0;
+    height: 80vh;
+    
+}
+
+#terminal {
+    background-color: #2F3129;
+    margin-top: 5px;
+    height: 20vh;
+    
+
+}
+ #btn-run {
+     margin-top:50px;
+     width: 100px;
+ }
