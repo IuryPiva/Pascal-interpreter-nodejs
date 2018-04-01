@@ -2,31 +2,23 @@
 const fileUtils = require('./src/utils/file-utils')
 const lexer = require('./src/lexical/lexer')
 const parser = require('./src/lexical/parser')
-var app = require('express')();
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
+const express = require('express')
+const bodyParser = require('body-parser')
 
-app.get('/', function(req, res){
-  res.sendFile(__dirname + '/index.html');
-});
-app.get('/socket.io/socket.io.js', function(req, res){
-  res.sendFile(__dirname + '/socket.io/socket.io.js');
-});
-app.get('/socket.io/socket.io.js.map', function(req, res){
-  res.sendFile(__dirname + '/socket.io/socket.io.js.map');
-});
-app.get('/public/css/style.css', function(req, res){
-  res.sendFile(__dirname + '/public/css/style.css');
-});
+var app = express()
 
-io.on('connection', function(socket){
-  socket.on('chat message', function(msg){
-    let words = lexer(msg)
-    io.emit('chat message', parser(words));
-  });
-});
-    
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(express.static(__dirname + '/public'))
 
-http.listen(3000, function(){
-  console.log('listening on *:3000');
-});
+app.post('/get-code', function(req, res) {
+    const code = Object.keys(req.body)[0]
+    console.log(typeof code)
+    console.log(code)
+})
+
+app.listen('8080', (r, e) => {
+   if (e) console.error(e)
+   else console.log('Server started succesfully')
+})
+
+console.log(parser(lexer("dacu")));

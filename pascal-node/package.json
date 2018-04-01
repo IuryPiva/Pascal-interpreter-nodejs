@@ -11,8 +11,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "split-string": "^5.0.4",
-    "express": "^4.15.2",
-    "socket.io": "^2.0.4"
+    "body-parser": "^1.18.2",
+    "express": "^4.16.3",
+    "socket.io": "^2.0.4",
+    "split-string": "^5.0.4"
   }
 }
