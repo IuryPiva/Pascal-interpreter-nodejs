@@ -1,7 +1,7 @@
 const tokenTypes = require('../utils/token-types')
 module.exports = function (words) {
   let row = 1;
-  let tokens = [{}]
+  let tokens = []
   for (let i = 0; i < words.length; i++) {
     const word = words[i]
     if (word == '\r\n') {

@@ -13,7 +13,7 @@
   "dependencies": {
     "body-parser": "^1.18.2",
     "express": "^4.16.3",
-    "socket.io": "^2.0.4",
+    "hotkeys-js": "^3.1.1",
     "split-string": "^5.0.4"
   }
 }

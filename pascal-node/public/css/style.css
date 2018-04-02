@@ -21,14 +21,6 @@ html,body{
 
 #terminal {
     background-color: #2F3129;
-    margin-top: 5px;
+    border-top: 5px solid #43443f;
     height: 20vh;
 }
-
- #btn-run {
-    width: 100px;
-    top: 40%;
-    position: relative;
-    height: 20%;
-    font-size: 2vh;
- }

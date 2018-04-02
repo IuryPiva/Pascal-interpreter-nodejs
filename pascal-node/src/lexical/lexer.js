@@ -24,6 +24,7 @@ function replaceOperators(text) {
     .replace(/\<  \=/g, ' <= ')
     .replace(/\>  \=/g, ' >= ')
     .replace(/\r\n/g, ' \r\n ')
+    .replace(/\n/g, '')
 }
 
 module.exports = function (code) {
