@@ -11,9 +11,11 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static(__dirname + '/public'))
 
 app.post('/get-code', function(req, res) {
-    const code = Object.keys(req.body)[0]
-    console.log(typeof code)
-    console.log(code)
+    var code = req.body.code
+    var stack = parser(lexer(code))
+    
+    res.send(stack);
+    
 })
 
 app.listen('8080', (r, e) => {
@@ -21,4 +23,5 @@ app.listen('8080', (r, e) => {
    else console.log('Server started succesfully')
 })
 
-console.log(parser(lexer("dacu")));
+
+

@@ -14,6 +14,11 @@ html,body{
     height: 80vh;    
 }
 
+.table {
+    background-color: #2F3129;
+    margin: auto 
+}
+
 #terminal {
     background-color: #2F3129;
     margin-top: 5px;

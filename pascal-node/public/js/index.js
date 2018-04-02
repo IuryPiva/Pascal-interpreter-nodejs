@@ -6,18 +6,32 @@ editor.setShowPrintMargin(false);
 editor.getSession().setMode("ace/mode/pascal");
 editor.focus();
 
+
 $("#btn-run").click(function() {
-  console.log(editor.getValue())
+  const data = {code: editor.getValue()}
   $.ajax({
     type: "POST",
     url: '/get-code',
-    data: editor.getValue(),
-    dataType: 'text',
+    data: data,
+    dataType: 'json',
     success: function (r) {
       console.log('Data sent succesfully')
+      insertDataTable(r)
     },
     error: function (e) {
       console.log('Error at trying to send data to server...')
     }
   })
 })
+
+function insertDataTable(stack) {
+  stack.forEach(element => {
+    var html = '';
+
+    html = "<tr> <td> " + element.word + "</td><td>" +  element.line + "</td><td>" + element.token + "</td></tr>";	
+				
+				$('#table-body').append(html);
+  });
+
+
+}
