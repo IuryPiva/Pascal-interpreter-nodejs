@@ -89,5 +89,10 @@ module.exports = {
     'contcase': '85',
     'rpinteiro': '86',
     'sem efeito': '87'
+  },
+  getToken: function (word) {
+    const allTokens = {};
+    Object.assign(allTokens, this.keywords, this.notTerminal, {'integer': '26','identifier': '25'})
+    return allTokens[word.toLowerCase()]
   }
 }
