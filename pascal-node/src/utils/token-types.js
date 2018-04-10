@@ -94,5 +94,8 @@ module.exports = {
     const allTokens = {};
     Object.assign(allTokens, this.keywords, this.notTerminal, {'integer': '26','identifier': '25'})
     return allTokens[word.toLowerCase()]
+  },
+  isTerminal: function (token) {
+    return this.getToken(word) < 52
   }
 }

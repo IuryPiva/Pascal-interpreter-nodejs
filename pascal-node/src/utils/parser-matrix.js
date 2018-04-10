@@ -188,5 +188,8 @@ module.exports = {
 	"85,7":["NULL"],
 	"85,47":[";","CONDCASE"],
 	"86,39":["NULL"],
-	"86,46":[",","INTEIRO","RPINTEIRO"]
+	"86,46":[",","INTEIRO","RPINTEIRO"],
+	getDerivation: function (parser, token) {
+		return this[parser + ',' +  token]
+	}
 }
