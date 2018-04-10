@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding="iso-8859-1"?>
+<!DOCTYPE gramatica SYSTEM "catalogoPalavras.dtd">
+<gramatica>
+	<terminais>
+		<terminal codigo="1" simbolo="PROGRAM" />
+		<terminal codigo="2" simbolo="LABEL" />
+		<terminal codigo="3" simbolo="CONST" />
+		<terminal codigo="4" simbolo="VAR" />
+		<terminal codigo="5" simbolo="PROCEDURE" />
+		<terminal codigo="6" simbolo="BEGIN" />
+		<terminal codigo="7" simbolo="END" />
+		<terminal codigo="8" simbolo="INTEGER" />
+		<terminal codigo="9" simbolo="ARRAY" />
+		<terminal codigo="10" simbolo="OF" />
+		<terminal codigo="11" simbolo="CALL" />
+		<terminal codigo="12" simbolo="GOTO" />
+		<terminal codigo="13" simbolo="IF" />
+		<terminal codigo="14" simbolo="THEN" />
+		<terminal codigo="15" simbolo="ELSE" />
+		<terminal codigo="16" simbolo="WHILE" />
+		<terminal codigo="17" simbolo="DO" />
+		<terminal codigo="18" simbolo="REPEAT" />
+		<terminal codigo="19" simbolo="UNTIL" />
+		<terminal codigo="20" simbolo="READLN" />
+		<terminal codigo="21" simbolo="WRITELN" />
+		<terminal codigo="22" simbolo="OR" />
+		<terminal codigo="23" simbolo="AND" />
+		<terminal codigo="24" simbolo="NOT" />
+		<terminal codigo="25" simbolo="IDENTIFICADOR" /> <!-- Nome de variáveis, qualquer nome-->
+		<terminal codigo="26" simbolo="INTEIRO" /> <!-- números inteiros 0..9 -->
+		<terminal codigo="27" simbolo="FOR" />
+		<terminal codigo="28" simbolo="TO" />
+		<terminal codigo="29" simbolo="CASE" />
+		
+		<!--simbolos especiais -->
+		<terminal codigo="30" simbolo="+" />
+		<terminal codigo="31" simbolo="-" />
+		<terminal codigo="32" simbolo="*" />
+		<terminal codigo="33" simbolo="/" />
+		<terminal codigo="34" simbolo="[" />
+		<terminal codigo="35" simbolo="]" />
+		<terminal codigo="36" simbolo="(" />
+		<terminal codigo="37" simbolo=")" />
+		<terminal codigo="38" simbolo=":=" />
+		<terminal codigo="39" simbolo=":" />
+		<terminal codigo="40" simbolo="=" />
+		<terminal codigo="41" simbolo=">" />
+		<terminal codigo="42" simbolo=">=" />
+		<terminal codigo="43" simbolo="&lt;" /> <!-- Sinal de menor -->
+		<terminal codigo="44" simbolo="&lt;=" /><!-- Sinal de menor ou igual-->
+		<terminal codigo="45" simbolo="&lt;&gt;" /><!-- Sinal de diferente -->
+		<terminal codigo="46" simbolo="," />
+		<terminal codigo="47" simbolo=";" />
+		<terminal codigo="48" simbolo="LITERAL" /> <!-- Exemplo: 'TEXTO CORRIDO' -->
+		<terminal codigo="49" simbolo="." />
+		<terminal codigo="50" simbolo=".." />
+		<terminal codigo="51" simbolo="$" /> <!-- símbolo para finalização do programa -->
+	</terminais>
+	<naoTerminais>
+		<naoTerminal codigo="52" simbolo="PROGRAMA" />
+		<naoTerminal codigo="53" simbolo="BLOCO" />
+		<naoTerminal codigo="54" simbolo="DCLROT" />
+		<naoTerminal codigo="55" simbolo="LID" />
+		<naoTerminal codigo="56" simbolo="REPIDENT" />
+		<naoTerminal codigo="57" simbolo="DCLCONST" />
+		<naoTerminal codigo="58" simbolo="LDCONST" />
+		<naoTerminal codigo="59" simbolo="DCLVAR" />
+		<naoTerminal codigo="60" simbolo="LDVAR" />
+		<naoTerminal codigo="61" simbolo="TIPO" />
+		<naoTerminal codigo="62" simbolo="DCLPROC" />
+		<naoTerminal codigo="63" simbolo="DEFPAR" />
+		<naoTerminal codigo="64" simbolo="CORPO" />
+		<naoTerminal codigo="65" simbolo="REPCOMANDO" />
+		<naoTerminal codigo="66" simbolo="COMANDO" />
+		<naoTerminal codigo="67" simbolo="RCOMID" />
+		<naoTerminal codigo="68" simbolo="RVAR" />
+		<naoTerminal codigo="69" simbolo="PARAMETROS" />
+		<naoTerminal codigo="70" simbolo="REPPAR" />
+		<naoTerminal codigo="71" simbolo="ELSEPARTE" />
+		<naoTerminal codigo="72" simbolo="VARIAVEL" />
+		<naoTerminal codigo="73" simbolo="VARIAVEL1" />
+		<naoTerminal codigo="74" simbolo="REPVARIAVEL" />
+		<naoTerminal codigo="75" simbolo="ITEMSAIDA" />
+		<naoTerminal codigo="76" simbolo="REPITEM" />
+		<naoTerminal codigo="77" simbolo="EXPRESSAO" />
+		<naoTerminal codigo="78" simbolo="REPEXPSIMP" />
+		<naoTerminal codigo="79" simbolo="EXPSIMP" />
+		<naoTerminal codigo="80" simbolo="REPEXP" />
+		<naoTerminal codigo="81" simbolo="TERMO" />
+		<naoTerminal codigo="82" simbolo="REPTERMO" />
+		<naoTerminal codigo="83" simbolo="FATOR" />
+		<naoTerminal codigo="84" simbolo="CONDCASE" />
+		<naoTerminal codigo="85" simbolo="CONTCASE" />
+		<naoTerminal codigo="86" simbolo="RPINTEIRO" />
+		<naoTerminal codigo="87" simbolo="SEMEFEITO" />
+	</naoTerminais>
+</gramatica>
