@@ -96,6 +96,12 @@ module.exports = {
     return allTokens[word.toLowerCase()]
   },
   isTerminal: function (token) {
-    return this.getToken(word) < 52
+    return parseInt(token) < 52
+  },
+  derivationToDerivate: function (derivation) {
+    return {
+      token: this.getToken(derivation),
+      word: derivation
+    }
   }
 }
