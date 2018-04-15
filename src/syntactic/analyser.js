@@ -26,8 +26,12 @@ module.exports = function (tokenStack) {
         console.log(`Unexpected end of file. ${derivate.word} expected.`)
         return
       }
+      
       const derivations = parserMatrix.getDerivation(derivate.token, entry.token)
-      if (derivations) {
+      
+      if(derivations[0] == "NULL"){
+        derivateStack.shift();
+      } else if (derivations) {
         derivateStack.shift()
         let auxStack = []
         derivations.map(element => {
@@ -35,11 +39,12 @@ module.exports = function (tokenStack) {
         });
         derivateStack = auxStack.concat(derivateStack)
       } else {
-        console.log(`Error on row:${entry.line}.
+        console.log(`Error on row:${entry.line}
          ${derivate.token} is not terminal and has no derivations. entry: ${entry.token}`)
         return
       }
     }
   }
+  console.log("saiu")
   return tokenStack
 }

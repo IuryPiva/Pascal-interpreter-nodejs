@@ -50,8 +50,8 @@ module.exports = {
     '>=': '42',
     '$': '51'
   },
-  integer: '26',
-  identifier: '25',
+  inteiro: '26',
+  identificador: '25',
   notTerminal: {
     'programa': '52',
     'bloco': '53',
@@ -79,7 +79,7 @@ module.exports = {
     'itemsaida': '75',
     'repitem': '76',
     'expressao': '77',
-    'repexsimp': '78',
+    'repexpsimp': '78',
     'expsimp': '79',
     'repexp': '80',
     'termo': '81',
@@ -92,7 +92,7 @@ module.exports = {
   },
   getToken: function (word) {
     const allTokens = {};
-    Object.assign(allTokens, this.keywords, this.notTerminal, {'integer': '26','identifier': '25'})
+    Object.assign(allTokens, this.keywords, this.notTerminal, {'inteiro': '26','identificador': '25'})
     return allTokens[word.toLowerCase()]
   },
   isTerminal: function (token) {
