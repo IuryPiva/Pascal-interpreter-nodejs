@@ -1,28 +1,50 @@
-// console.log(Date())
 const fileUtils = require('./src/utils/file-utils')
 const lexer = require('./src/lexical/lexer')
 const parser = require('./src/lexical/parser')
-const express = require('express')
-const bodyParser = require('body-parser')
 const analyser = require('./src/syntactic/analyser')
 
+const express = require('express')
+const bodyParser = require('body-parser')
+
 var app = express()
+
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static(__dirname + '/public'))
 
-app.post('/get-code', function(req, res) {
-  var code = req.body.code
-  var stack = parser(lexer(code))
-  res.send(stack);
-  analyser(stack)
-})
 
 app.get('/hotkeys.js', function(req, res) {
   res.sendFile(__dirname + '/node_modules/hotkeys-js/dist/hotkeys.min.js');
 })
 
-app.listen('8080', (r, e) => {
-   if (e) console.error(e)
-   else console.log('Server started succesfully')
+http.listen(8080, function(){
+  console.log('Vai tomar no cu project');
+});
+
+io.on('connection', function(socket){
+  console.log('project vai se foder');
+
+  socket.on('disconnect', function(){
+    console.log('project já se fodeu');
+});
+
+  socket.on('lexer', function(data) {
+    var stack = parser(lexer(data.code));    
+    io.emit('parser', stack)
 })
+
+  socket.on('parser', function(stack) {
+    var parser = analyser(stack)
+    
+    io.emit('analyser', parser)
+
+})
+
+});
+
+
+
+    

@@ -2,7 +2,7 @@ const tokenTypes = require('../utils/token-types')
 const parserMatrix = require('../utils/parser-matrix')
 
 module.exports = function (tokenStack) {
-  debugger  
+  var erros = [];
   // DERIVATE É X // ENTRY É A
   let derivateStack = [{
     token: tokenTypes.getToken('PROGRAMA'),
@@ -17,19 +17,19 @@ module.exports = function (tokenStack) {
         derivateStack.shift()
         tokenStack.shift()
       } else {
-        console.log(`Error on row:${entry.line}.
-         ${derivate.token} is terminal and different of ${entry.token}`)
-        return
+        erros.pusah({ error : `Error on row: ${entry.line} - ${derivate.token} is terminal and different of ${entry.token}`})
+         
+        return erros
       }
     } else {
       if (!entry) {
-        console.log(`Unexpected end of file. ${derivate.word} expected.`)
-        return
+        erros.push({ errror : `Unexpected end of file. ${derivate.word} expected.`})
+        return erros
       }
       
       const derivations = parserMatrix.getDerivation(derivate.token, entry.token)
       
-      if(derivations[0] == "NULL"){
+      if(derivations == "NULL"){
         derivateStack.shift();
       } else if (derivations) {
         derivateStack.shift()
@@ -39,12 +39,10 @@ module.exports = function (tokenStack) {
         });
         derivateStack = auxStack.concat(derivateStack)
       } else {
-        console.log(`Error on row:${entry.line}
-         ${derivate.token} is not terminal and has no derivations. entry: ${entry.token}`)
-        return
+        erros.push({ error: `Error on row: ${entry.line} - ${derivate.token} is not terminal and has no derivations. entry: ${entry.token}`})
+        return erros
       }
     }
   }
-  console.log("saiu")
-  return tokenStack
+  return {success: 'Successfully compiled'}
 }

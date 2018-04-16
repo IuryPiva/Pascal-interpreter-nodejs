@@ -24,3 +24,8 @@ html,body{
     border-top: 5px solid #43443f;
     height: 20vh;
 }
+
+#terminal h6 {
+    color: white;
+    font-size: 80%;
+}
