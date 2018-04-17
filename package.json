@@ -15,6 +15,7 @@
     "body-parser": "^1.18.2",
     "express": "^4.16.3",
     "hotkeys-js": "^3.1.1",
+    "nodemon": "^1.17.3",
     "socket.io": "^2.1.0",
     "split-string": "^5.0.4"
   }

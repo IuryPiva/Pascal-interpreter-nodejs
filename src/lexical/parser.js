@@ -2,6 +2,8 @@ const tokenTypes = require('../utils/token-types')
 module.exports = function (words) {
   let row = 1;
   let tokens = []
+
+  
   for (let i = 0; i < words.length; i++) {
     const word = words[i]
     if (word == '\r\n') {
@@ -47,12 +49,14 @@ module.exports = function (words) {
         console.log('Error:', word, 'is too large. Identifiers should have a max of 30 characters.')
       } else {
         // console.log(word, 'at line: ' + row, 'token: ' + 25)
-
+        
         tokens.push({
           word: word,
           line: row,
           token: "25"
+        
         })
+      
       }
     }
   }

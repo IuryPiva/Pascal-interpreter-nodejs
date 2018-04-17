@@ -4,7 +4,7 @@ const parser = require('./src/lexical/parser')
 const analyser = require('./src/syntactic/analyser')
 
 const express = require('express')
-const bodyParser = require('body-parser')
+//const bodyParser = require('body-parser')
 
 var app = express()
 
@@ -12,7 +12,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
 
-app.use(bodyParser.urlencoded({ extended: false }))
+//app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static(__dirname + '/public'))
 
 
@@ -21,14 +21,14 @@ app.get('/hotkeys.js', function(req, res) {
 })
 
 http.listen(8080, function(){
-  console.log('Vai tomar no cu project');
+  console.log('Server online');
 });
 
 io.on('connection', function(socket){
-  console.log('project vai se foder');
+  console.log('User connected');
 
   socket.on('disconnect', function(){
-    console.log('project já se fodeu');
+    console.log('User disconnected');
 });
 
   socket.on('lexer', function(data) {
