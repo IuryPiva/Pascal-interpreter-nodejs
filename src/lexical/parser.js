@@ -6,7 +6,7 @@ module.exports = function (words) {
   
   for (let i = 0; i < words.length; i++) {
     const word = words[i]
-    if (word == '\r\n') {
+    if (word == '\n') {
       row++
     } else if (tokenTypes.keywords.hasOwnProperty(word.toLowerCase())) {
       // IF IS KEYWORD
