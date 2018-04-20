@@ -12,8 +12,6 @@ module.exports = function (tokenStack) {
   while (derivateStack.length > 0) {
     const derivate = derivateStack[0]
     const entry = tokenStack[0]
-    console.log('x : ' + derivate.token)
-    console.log('a : ' + entry.token)
 
     if (tokenTypes.isTerminal(derivate.token)) {
       if (derivate.token == entry.token) {
@@ -47,6 +45,6 @@ module.exports = function (tokenStack) {
       }
     }
   }
-  console.log('saiu')
+  
   return {success: 'Successfully compiled'}
 }

@@ -11,7 +11,7 @@ html,body{
 #table {
     background-color: #2F3129;
     margin: 0;
-    height: 80vh;    
+    height: 70vh;    
 }
 
 .table {
@@ -23,6 +23,7 @@ html,body{
     background-color: #2F3129;
     border-top: 5px solid #43443f;
     height: 20vh;
+    overflow-y: scroll
 }
 
 #terminal h6 {

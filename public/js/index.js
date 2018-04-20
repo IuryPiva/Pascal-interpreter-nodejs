@@ -28,12 +28,15 @@ socket.on('analyser', function(parser) {
       
     
       $('#terminal').append(html);
+
+      $("#terminal").animate({ scrollTop: $('#terminal').prop("scrollHeight")}, 0);
     });
   } else {
     html = "<h6>" + currentDate() + " - " + parser.success +  "</h6>"
 
     $('#terminal').append(html);
-
+    
+    $("#terminal").animate({ scrollTop: $('#terminal').prop("scrollHeight")}, 0);
   }
 
 })
