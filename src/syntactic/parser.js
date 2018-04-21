@@ -2,13 +2,15 @@ const tokenTypes = require('../utils/token-types')
 const parserMatrix = require('../utils/parser-matrix')
 
 module.exports = function (tokenStack) {
+  if(tokenStack.length == 0) {
+    return [{ error: `Error - empty program`}]
+  }
   var erros = [];
   // DERIVATE É X // ENTRY É A
   let derivateStack = [{
     token: tokenTypes.getToken('PROGRAMA'),
     word: 'PROGRAMA'
   }]
-  debugger
   while (derivateStack.length > 0) {
     const derivate = derivateStack[0]
     const entry = tokenStack[0]
@@ -40,7 +42,7 @@ module.exports = function (tokenStack) {
         });
         derivateStack = auxStack.concat(derivateStack)
       } else {
-        erros.push({ error: `Error on row: ${entry.line} - ${derivate.token} is not terminal and has no derivations. entry: ${entry.token}`})
+        erros.push({ error: `Error - Unexpected ${entry.word} on line: ${entry.line}`})
         return erros
       }
     }

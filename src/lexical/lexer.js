@@ -1,37 +1,69 @@
-const split = require('split-string');
+const tokenTypes = require('../utils/token-types')
+module.exports = function (words, socket) {
+  let row = 1;
+  let tokens = []
 
-function replaceOperators(text) {
-  return text
-    .replace(/\(\*(.*?)\*\)/g, '')
-    .replace(/\+/g, ' + ')
-    .replace(/\*/g, ' * ')
-    .replace(/\=/g, ' = ')
-    .replace(/\-/g, ' - ')
-    .replace(/\,/g, ' , ')
-    .replace(/\;/g, ' ; ')
-    .replace(/\:/g, ' : ')
-    .replace(/\./g, ' . ')
-    .replace(/\(/g, ' ( ')
-    .replace(/\)/g, ' ) ')
-    .replace(/\[/g, ' [ ')
-    .replace(/\]/g, ' ] ')
-    .replace(/\//g, ' / ')
-    .replace(/\</g, ' < ')
-    .replace(/\>/g, ' > ')
-    .replace(/\$/g, ' $ ')
-    .replace(/\:  \=/g, ' := ')
-    .replace(/\.  \./g, ' .. ')
-    .replace(/\<  \>/g, ' <> ')
-    .replace(/\<  \=/g, ' <= ')
-    .replace(/\>  \=/g, ' >= ')
-    .replace(/\r\n/g, ' \n ')
-    .replace(/\n/g, ' \n ')
-    
-    
-}
-
-module.exports = function (code) {
-  return split(replaceOperators(code), {
-    separator: ' '
-  }).filter(String);
+  
+  for (let i = 0; i < words.length; i++) {
+    const word = words[i]
+    if (word == '\n') {
+      row++
+    } else if (tokenTypes.keywords.hasOwnProperty(word.toLowerCase())) {
+      // IF IS KEYWORD
+      tokens.push({
+        word: word,
+        line: row,
+        token: tokenTypes.keywords[word.toLowerCase()]
+      })
+      // console.log(word, 'at line: ' + row, 'token: ' + tokenTypes.keywords[word.toLowerCase()])
+    } else if (!isNaN(word - parseFloat(word))) {
+      // IF IS NUMERIC
+      if (word * 1 > 32767 || word * 1 < -32767) {
+        socket.emit('lexerError','Error: '+ word+ ' is out of range. Numbers should be at the range of -32767 and 32767.')
+        return        
+      } else {
+        tokens.push({
+          word: word,
+          line: row,
+          token: "26"
+        })
+        // console.log(word, 'at line: ' + row, 'token: ' + 26)
+      }
+    } else {
+      if (!isNaN(word[0] - parseFloat(word[0]))) {
+        debugger
+        socket.emit('lexerError','Error: '+ word+ ' is not a valid identifier, it should not start with a number.')
+        return
+      } else if (word[0] == '\'') {
+        if (word.length > 256) {
+          socket.emit('lexerError','Error: '+ word+ ' is too large. Comments should have a max of 255 characters.')
+          return          
+        } else if (word[word.length - 1] != '\'') {
+          socket.emit('lexerError','Error comment starting on line: ' + row + '  does not have an end')
+          return
+        } else {
+          tokens.push({
+            word: word,
+            line: row,
+            token: "48"
+          })
+          // console.log(word, 'at line: ' + row, 'token: ' + 48)
+        }
+      } else if (word.length > 30) {
+          socket.emit('lexerError','Error:', word, 'is too large. Identifiers should have a max of 30 characters.')
+          return          
+      } else {
+        // console.log(word, 'at line: ' + row, 'token: ' + 25)
+        
+        tokens.push({
+          word: word,
+          line: row,
+          token: "25"
+        
+        })
+      
+      }
+    }
+  }
+  return tokens
 }
