@@ -2,6 +2,7 @@ const fileUtils = require('./src/utils/file-utils')
 const tokenizer = require('./src/lexical/tokenizer')
 const lexer = require('./src/lexical/lexer')
 const parser = require('./src/syntactic/parser')
+const semantic = require('./src/semantics/semantics')
 
 const express = require('express')
 //const bodyParser = require('body-parser')
@@ -37,10 +38,10 @@ io.on('connection', function (socket) {
   })
 
   socket.on('parser', function (stack) {
+    semantic(stack)
     var parsedStack = parser(stack)
-
     io.emit('analyser', parsedStack)
-
+    
   })
   socket.on('lexerError', function(error) {
     console.log(error, 'error 46')

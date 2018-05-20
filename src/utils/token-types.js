@@ -98,6 +98,12 @@ module.exports = {
   isTerminal: function (token) {
     return parseInt(token) < 52
   },
+  isCategory: function (token) {
+    return parseInt(token.token) >=1 && parseInt(token.token) <=5
+  },
+  isIdentifier: function (token) {
+    return parseInt(token.token) == 25
+  },
   derivationToDerivate: function (derivation) {
     return {
       token: this.getToken(derivation),

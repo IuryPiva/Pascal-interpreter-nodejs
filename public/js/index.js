@@ -31,7 +31,7 @@ socket.on('lexerError', function (error) {
   }, 0);
 })
 socket.on('analyser', function (parser) {
-  console.log(parser)
+  
   if (parser.length > 0) {
 
     parser.forEach(element => {

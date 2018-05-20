@@ -2,20 +2,22 @@ const tokenTypes = require('../utils/token-types')
 module.exports = function (words, socket) {
   let row = 1;
   let tokens = []
-
+  let category = '';
+ 
   
   for (let i = 0; i < words.length; i++) {
     const word = words[i]
     if (word == '\n') {
       row++
+      
     } else if (tokenTypes.keywords.hasOwnProperty(word.toLowerCase())) {
-      // IF IS KEYWORD
+     // IF IS KEYWORD
       tokens.push({
         word: word,
         line: row,
         token: tokenTypes.keywords[word.toLowerCase()]
       })
-      // console.log(word, 'at line: ' + row, 'token: ' + tokenTypes.keywords[word.toLowerCase()])
+      
     } else if (!isNaN(word - parseFloat(word))) {
       // IF IS NUMERIC
       if (word * 1 > 32767 || word * 1 < -32767) {
@@ -31,7 +33,7 @@ module.exports = function (words, socket) {
       }
     } else {
       if (!isNaN(word[0] - parseFloat(word[0]))) {
-        debugger
+        
         socket.emit('lexerError','Error: '+ word+ ' is not a valid identifier, it should not start with a number.')
         return
       } else if (word[0] == '\'') {
@@ -53,7 +55,7 @@ module.exports = function (words, socket) {
           socket.emit('lexerError','Error:', word, 'is too large. Identifiers should have a max of 30 characters.')
           return          
       } else {
-        // console.log(word, 'at line: ' + row, 'token: ' + 25)
+        
         
         tokens.push({
           word: word,
