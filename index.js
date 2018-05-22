@@ -38,7 +38,7 @@ io.on('connection', function (socket) {
   })
 
   socket.on('parser', function (stack) {
-    semantic(stack)
+
     var parsedStack = parser(stack)
     io.emit('analyser', parsedStack)
     

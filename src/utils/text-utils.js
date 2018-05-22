@@ -3,6 +3,6 @@ module.exports = {
         return text.split('').reverse()
     },
     removeComments: function(text) {
-        return text.replace(/(\(\*([\s\S]*?)\*\))/gm, '');
+        return text.replace(/(\(\*(.*?)\*\))/gm, '');
     }
 }
