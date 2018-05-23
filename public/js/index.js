@@ -11,50 +11,33 @@ function run() {
   const data = {
     code: editor.getValue()
   }
-  socket.emit('lexer', data)
+  socket.emit('run(f5)', data)
 }
 
-socket.on('parser', function (stack) {
-  insertDataTable(stack)
-  socket.emit('parser', stack)
+socket.on('doneCompiling', function (data) {
+  insertDataTable(data.stack)
+  if (data.parsedStack.length > 0) {
+
+    data.parsedStack.forEach(element => {
+      var html = '';
+
+      html = "<h6>" + currentDate() + " - " + element.error + "</h6>"
+
+
+      insertDataConsole(html)
+    });
+  } else {
+    html = "<h6>" + currentDate() + " - " + data.parsedStack.success + "</h6>"
+
+    insertDataConsole(html)
+  }
 })
 socket.on('lexerError', function (error) {
   var html = '';
 
   html = "<h6>" + currentDate() + " - " + error + "</h6>"
 
-
-  $('#terminal').append(html);
-
-  $("#terminal").animate({
-    scrollTop: $('#terminal').prop("scrollHeight")
-  }, 0);
-})
-socket.on('analyser', function (parser) {
-  
-  if (parser.length > 0) {
-
-    parser.forEach(element => {
-      var html = '';
-
-      html = "<h6>" + currentDate() + " - " + element.error + "</h6>"
-
-
-      $('#terminal').append(html);
-
-      $("#terminal").animate({
-        scrollTop: $('#terminal').prop("scrollHeight")
-      }, 0);
-    });
-  } else {
-    html = "<h6>" + currentDate() + " - " + parser.success + "</h6>"
-
-    $('#terminal').append(html);
-
-    $("#terminal").animate({
-      scrollTop: $('#terminal').prop("scrollHeight")
-    }, 0);
-  }
+  insertDataConsole(html)
 
 })
 
@@ -77,6 +60,15 @@ hotkeys('f5', function (event, handler) {
 
 $("#btn-run").click(run)
 
+
+function insertDataConsole(data) {
+  $('#terminal').append(data);
+
+  $("#terminal").animate({
+    scrollTop: $('#terminal').prop("scrollHeight")
+  }, 0);
+
+}
 function insertDataTable(stack) {
 
   $('#table-body')[0].innerHTML = ''

@@ -1,8 +1,7 @@
-const fileUtils = require('./src/utils/file-utils')
 const tokenizer = require('./src/lexical/tokenizer')
 const lexer = require('./src/lexical/lexer')
 const parser = require('./src/syntactic/parser')
-const semantic = require('./src/semantics/semantics')
+const semantics = require('./src/semantics/semantics')
 
 const express = require('express')
 //const bodyParser = require('body-parser')
@@ -32,17 +31,15 @@ io.on('connection', function (socket) {
     console.log('User disconnected');
   });
 
-  socket.on('lexer', function (data) {
-    var stack = lexer(tokenizer(data.code), socket);
-    io.emit('parser', stack)
-  })
-
-  socket.on('parser', function (stack) {
-
-    var parsedStack = parser(stack)
-    io.emit('analyser', parsedStack)
+  socket.on('run(f5)', function (data) {
+    let stack = lexer(tokenizer(data.code), socket)
+    let parsedStack = parser(stack.slice(0))
+    semantics(stack)
     
+    
+    io.emit('doneCompiling', {stack, parsedStack})
   })
+
   socket.on('lexerError', function(error) {
     console.log(error, 'error 46')
   })

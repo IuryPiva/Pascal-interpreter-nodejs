@@ -1,24 +1,77 @@
-Program testeproc1;
-Var
- X, y, z :integer;
-Procedure P;
-Var
- A :integer;
-Begin
- Readln(a);
- If a=x then
- z:=z+x
- Else begin
- Z:=z-x;
- Call p;
- End;
-End;
-Begin
- Z:=0;
- Readln(x,y);
- If x>y then
- Call p
- Else
- Z:=z+x+y;
- Writeln(z);
-End. 
+PROGRAM TESTE123;
+LABEL
+label_a, label_b;
+
+CONST
+a = -100;
+b = -200;
+VAR
+X, Y, Z : INTEGER;
+array_a: ARRAY[0..20]OF INTEGER;
+array_b, array_c, array_d : ARRAY[0..1000]OF INTEGER;
+
+(* Declara��o de procedure, inicia novo bloco *)
+PROCEDURE p_teste(idd : INTEGER);
+LABEL
+label_a, label_b;
+
+CONST
+a = 100;
+b = 200;
+
+VAR
+X, Y, Z : INTEGER;
+array_a: ARRAY[0..20]OF INTEGER;
+array_b: ARRAY[0..1000]OF INTEGER;
+BEGIN
+X:= a * b;
+
+END;
+
+(*
+  - In�cio do bloco principal
+    *)
+
+BEGIN
+x:= 150;
+begin
+x:= 20;
+end;
+
+(* Chama a procedure *)
+CALL p_teste(100);
+
+(* Testa as possibilidades do IF *)
+IF(10 > 15) THEN
+BEGIN
+END
+ELSE
+BEGIN
+END;
+
+(* Testa as possibilidades do WHILE *)
+WHILE(x <> 0)DO
+BEGIN
+END;
+
+(* Testa as possibilidades do REPEAT *)
+REPEAT
+BEGIN
+END
+UNTIL X > 10;
+
+(* Testa as possibilidades do WRITELN *)
+WRITELN(X, Z, Y);
+
+(* Testa as possibilidades do FOR *)
+FOR x:= y > 2 TO 10 - 2 DO
+BEGIN
+END;
+
+(* Testa as possibilidades do CASE *)
+CASE A + 2 OF
+10 : BEGIN END;
+20 : BEGIN END;
+30 : BEGIN END
+END;
+END.

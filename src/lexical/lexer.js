@@ -3,13 +3,16 @@ module.exports = function (words, socket) {
   let row = 1;
   let tokens = []
   let category = '';
- 
+  let insideComment = false
   
   for (let i = 0; i < words.length; i++) {
     const word = words[i]
     if (word == '\n') {
       row++
-      
+    } else if(word == '(*' || word == '*)') {
+      insideComment = !insideComment
+    } else if(insideComment) {
+      // ignore everything inside comments except new lines and close comments
     } else if (tokenTypes.keywords.hasOwnProperty(word.toLowerCase())) {
      // IF IS KEYWORD
       tokens.push({
@@ -21,6 +24,7 @@ module.exports = function (words, socket) {
     } else if (!isNaN(word - parseFloat(word))) {
       // IF IS NUMERIC
       if (word * 1 > 32767 || word * 1 < -32767) {
+        debugger
         socket.emit('lexerError','Error: '+ word+ ' is out of range. Numbers should be at the range of -32767 and 32767.')
         return        
       } else {

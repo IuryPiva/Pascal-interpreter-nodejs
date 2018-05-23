@@ -99,10 +99,10 @@ module.exports = {
     return parseInt(token) < 52
   },
   isCategory: function (token) {
-    return parseInt(token.token) >=1 && parseInt(token.token) <=5
+    return parseInt(token) >=1 && parseInt(token) <=5
   },
   isIdentifier: function (token) {
-    return parseInt(token.token) == 25
+    return parseInt(token) == 25
   },
   derivationToDerivate: function (derivation) {
     return {
