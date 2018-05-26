@@ -2,6 +2,7 @@ const tokenTypes = require('../utils/token-types')
 const parserMatrix = require('../utils/parser-matrix')
 
 module.exports = function (tokenStack) {
+  let tokenStackTipos = tokenStack  
   if(tokenStack.length == 0) {
     return [{ error: `Error - empty program`}]
   }

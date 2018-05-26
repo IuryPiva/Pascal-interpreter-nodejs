@@ -104,6 +104,23 @@ module.exports = {
   isIdentifier: function (token) {
     return parseInt(token) == 25
   },
+  isTokenLevel: function(token) {
+    let tk = parseInt(token)
+
+    if(tk == 13) {
+      return 'if'
+    } else if(tk == 1) {
+      return 'program'
+    } else if(tk == 5) {
+      return 'procedure'
+    } else if(tk == 29) {
+      return 'case'
+    } else if(tk == 27) {
+      return 'for'
+    } else if(tk == 16){
+      return 'while'
+    }
+  },
   derivationToDerivate: function (derivation) {
     return {
       token: this.getToken(derivation),
