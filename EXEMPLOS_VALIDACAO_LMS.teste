@@ -1,0 +1,254 @@
+Exemplo 1: -----------------------------------------------------------------------------------------------
+(*TESTE - Exemplo Válido*)
+PROGRAM TESTE123;
+	LABEL
+		label_a, label_b;
+	
+	CONST
+		a = -100;
+		b = -200;
+	VAR 
+		 X, Y, Z : INTEGER;
+		array_a : ARRAY[0..20] OF INTEGER;
+		array_b, array_c, array_d : ARRAY[0..1000] OF INTEGER;
+	
+	(*Declaração de procedure, inicia novo bloco*)
+	PROCEDURE p_teste(idd : INTEGER);
+		LABEL
+			label_a, label_b;
+			
+		CONST
+			a = 100;
+			b = 200;
+
+		VAR 
+			X, Y, Z : INTEGER;
+			array_a : ARRAY[0..20] OF INTEGER;
+			array_b : ARRAY[0..1000] OF INTEGER;
+	BEGIN
+		X := a * b;
+
+	END;
+
+(*	
+	- Início do bloco principal
+*)
+
+BEGIN
+	x := 150;
+	begin
+		x := 20;
+	end;
+	
+	(*Chama a procedure*)
+	CALL p_teste( 100 );
+	
+	(*Testa as possibilidades do IF*)
+	IF (10 > 15) THEN
+		BEGIN
+		END
+	ELSE
+		BEGIN
+		END;
+
+	(*Testa as possibilidades do WHILE*)
+	WHILE(x <> 0)DO
+	BEGIN 
+	END; 
+
+	(*Testa as possibilidades do REPEAT*)
+	REPEAT 
+	BEGIN 
+	END
+	UNTIL X > 10;
+
+	(*Testa as possibilidades do WRITELN*)
+	WRITELN(X,Z,Y);
+
+	(*Testa as possibilidades do FOR*)
+	FOR x := y > 2 TO 10 - 2 DO
+	BEGIN
+	END;
+
+	(*Testa as possibilidades do CASE*)
+	CASE A + 2 OF
+		10 : BEGIN END;
+		20 : BEGIN END;
+		30 : BEGIN END
+	END;
+END.
+
+Exemplo 2: -----------------------------------------------------------------------------------------------
+(*TESTE - EXEMPLO VÁLIDO*)
+PROGRAM TESTE123;
+VAR x, A, B : INTEGER;
+
+BEGIN
+     (*Testa as possibilidades do REPEAT*)
+     REPEAT 
+     BEGIN 
+	READLN(A,B);
+     END
+     UNTIL X > 10;
+
+END.
+
+Exemplo 3: -----------------------------------------------------------------------------------------------
+(*TESTE - Exemplo iválido. O label_a não é válido para a procedure*)
+PROGRAM TESTEPROC2;
+LABEL label_a;
+const a  = 100;
+VAR X,Y, z : INTEGER;
+PROCEDURE P(y : INTEGER);
+CONST A = 2;
+VAR X,T:INTEGER;
+begin
+end;
+BEGIN
+CALL p(label_a)
+
+END.
+
+Exemplo 4: -----------------------------------------------------------------------------------------------
+(*TESTE - Erro*)
+(*A derivao [66,26] 'COMANDO,INTEIRO' no foi encontrada na tabela de parsing.*)
+PROGRAM TESTE123;
+VAR x, A, B : INTEGER;
+BEGIN
+     REPEAT 5
+     BEGIN 
+	READLN(A,B);
+                        x := A * B;
+     END
+     UNTIL X > 10;
+
+END.
+
+Exemplo 5: -----------------------------------------------------------------------------------------------
+(*TESTE - Válido. Uma expressão pode ser utilizada na procedure*)
+PROGRAM TESTEPROC2;
+LABEL label_a;
+const a  = 100;
+VAR X,Y, z : INTEGER;
+PROCEDURE P(y : INTEGER);
+CONST A = 2;
+VAR X,T:INTEGER;
+begin
+end;
+BEGIN
+X:=10;
+CALL p((10 +5) * X)
+
+END.
+
+
+Exemplo 6: -----------------------------------------------------------------------------------------------
+(*TESTE - Exemplo Válido com procedures*)
+PROGRAM TESTE123;
+	CONST
+		a = -100;
+		b = -200;
+	VAR 
+		 X, Y, Z : INTEGER;
+		array_a : ARRAY[0..20] OF INTEGER;
+		array_b, array_c, array_d : ARRAY[0..1000] OF INTEGER;
+	
+	(*Declaração de procedure, inicia novo bloco*)
+	PROCEDURE p_teste(idd : INTEGER);
+		LABEL
+			label_a, label_b;
+			
+		CONST
+			a = 100;
+			b = 200;
+
+		VAR 
+			X, Y, Z : INTEGER;
+			array_a : ARRAY[0..20] OF INTEGER;
+			array_b : ARRAY[0..1000] OF INTEGER;
+	BEGIN
+		X := a * b;
+
+	END;
+
+BEGIN
+	call p_teste(a);
+	call p_teste(b);
+	call p_teste(X);
+END.
+
+Exemplo 6: -----------------------------------------------------------------------------------------------
+(*TESTE - Exemplo inválido: A varivel 'A' foi declarada em duplicidade*)
+PROGRAM TESTE123;
+	CONST
+		a = -100;
+		b = -200;
+	VAR 
+		 a, Y, Z : INTEGER;
+BEGIN
+	Z := 0;
+END.
+
+Exemplo 7: -----------------------------------------------------------------------------------------------
+(*TESTE - Exemplo válido: multiplicação*)
+PROGRAM TESTE123;
+	CONST
+		a = -100;
+		b = -200;
+	VAR 
+		 Y, Z : INTEGER;
+BEGIN
+	Z := a * Y + 2;
+END.
+
+Exemplo 8: -----------------------------------------------------------------------------------------------
+(*TESTE - valido com duas procedures*)
+PROGRAM TESTE_PROC;
+	(*Proc A*)
+	PROCEDURE p_a(idd : INTEGER);
+		VAR 
+		    X, Y, Z : INTEGER;
+	BEGIN
+		X := X * Y;
+	END;
+
+	(*Proc B com os mesmos dados de A*)
+	PROCEDURE p_b(idd : INTEGER);
+		VAR 
+		    X, Y, Z : INTEGER;
+	BEGIN
+		X := Z *Z;
+	END;
+
+
+BEGIN
+	call p_a(10 + 2);
+	call p_b(5);
+END.
+
+Exemplo 8: -----------------------------------------------------------------------------------------------
+(*TESTE - inválido: procedure duplicada*)
+PROGRAM TESTE_PROC;
+	(*Proc A*)
+	PROCEDURE p_a(idd : INTEGER);
+		VAR 
+		    X, Y, Z : INTEGER;
+	BEGIN
+		X := X * Y;
+	END;
+
+	(*Proc B com os mesmos dados de A*)
+	PROCEDURE p_a(idd : INTEGER);
+		VAR 
+		    X, Y, Z : INTEGER;
+	BEGIN
+		X := Z *Z;
+	END;
+
+
+BEGIN
+	call p_a(10 + 2);
+	call p_b(5);
+END.
+
+
