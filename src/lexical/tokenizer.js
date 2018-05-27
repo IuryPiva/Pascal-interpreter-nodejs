@@ -25,6 +25,7 @@ function replaceOperators(text) {
   .replace(/\>  \=/g, ' >= ')
   .replace(/\r\n/g, ' \n ')
   .replace(/\n/g, ' \n ')
+  .replace(/\t/g, '')
   .replace(/\(  \*/g, ' (* ')
   .replace(/\*  \)/g, ' *) ')
 }
