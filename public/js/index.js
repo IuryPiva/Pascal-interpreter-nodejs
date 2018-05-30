@@ -41,6 +41,14 @@ socket.on('lexerError', function (error) {
 
 })
 
+socket.on('semanticError', function (error) {
+  var html = '';
+
+  html = "<h6>" + currentDate() + " - " + error + "</h6>"
+
+  insertDataConsole(html)
+
+})
 editor.commands.addCommand({
   name: 'run',
   bindKey: {

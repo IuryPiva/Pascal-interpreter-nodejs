@@ -34,7 +34,7 @@ io.on('connection', function (socket) {
   socket.on('run(f5)', function (data) {
     let stack = lexer(tokenizer(data.code), socket)
     let parsedStack = parser(stack.slice(0))
-    semantics(stack)
+    semantics(stack, socket)
     
     
     io.emit('doneCompiling', {stack, parsedStack})

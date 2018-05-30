@@ -24,7 +24,6 @@ module.exports = function (words, socket) {
     } else if (!isNaN(word - parseFloat(word))) {
       // IF IS NUMERIC
       if (word * 1 > 32767 || word * 1 < -32767) {
-        debugger
         socket.emit('lexerError','Error: '+ word+ ' is out of range. Numbers should be at the range of -32767 and 32767.')
         return        
       } else {

@@ -34,7 +34,7 @@ module.exports = {
     ':=': '38',
     '.': '49',
     '..': '50',
-    "'": '48',
+    'literal': '48',
     '(': '36',
     ')': '37',
     '[': '34',
@@ -120,6 +120,17 @@ module.exports = {
     } else if(tk == 16){
       return 'while'
     }
+  },
+  isOperation: function(token){
+    
+    let arr = [32, 33, 30, 43, 45, 44, 40, 41, 42]
+    
+      let even = function (element) {
+      let tk = parseInt(token)
+      return element == tk
+  }        
+    return arr.some(even)
+
   },
   derivationToDerivate: function (derivation) {
     return {

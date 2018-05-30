@@ -43,6 +43,7 @@ module.exports = function (tokenStack) {
         });
         derivateStack = auxStack.concat(derivateStack)
       } else {
+        
         erros.push({ error: `Error - Unexpected ${entry.word} on line: ${entry.line}`})
         return erros
       }
