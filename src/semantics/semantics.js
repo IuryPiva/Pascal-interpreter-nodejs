@@ -10,6 +10,8 @@ let end = false
 let index = 0
 let arrayToken = false
 let arrayVar = []
+let errors= []
+
 
 module.exports = function (tokenStack, socket) {
 
@@ -23,12 +25,40 @@ module.exports = function (tokenStack, socket) {
         if (identifiers.some(even)) {
             return true
         } else {
-            socket.emit('semanticError', 'Error: Identifier: ' + newIdentifier.word + ' does not exist in this scope')
+            errors.push('semanticError', 'Error: Identifier: ' + newIdentifier.word + ' does not exist in this scope')
         }
 
 
     }
 
+    function validParameters(token) {
+        arr = ['25', '26', '37', '36', '32', '33', '30', '43', '45', '44', '40', '41', '42']
+
+        return arr.find(element => (token == element))
+    }
+
+    function procedureCall(token) {
+        let tk
+        if (tokenTypes.isIdentifier(token.token)) {
+            if (tk = returnIdentifier(token)) {
+                l = index + 1
+                if (tk.token.category == 'procedure') {
+                    debugger
+                    while (tokenStack[l].token != '47') {
+                        if (tokenStack[l].token == '25') {
+                            tk = returnIdentifier(tokenStack[l])
+                            if (tk.token.category == 'label') {
+                                errors.push('semanticError', 'Error: Invalid parameter at procedure ' + token.word + '. At line ' + token.line)
+                            }
+
+                        }
+                        l++
+                    }
+                }
+            }
+        }
+
+    }
     function isAttribution(token) {
         if (token == '38') {
             return true
@@ -45,30 +75,38 @@ module.exports = function (tokenStack, socket) {
                 return false
             }
         }
-        
+
         if (identifiers.find(rola)) {
             return identifiers.find(rola)
         } else {
-            socket.emit('semanticError', 'Error: Identifier: ' + token.word + ' does not exist in this scope. At line: ' + token.line)
+            errors.push('semanticError', 'Error: Identifier: ' + token.word + ' does not exist in this scope. At line: ' + token.line)
         }
     }
 
     function duplicateIdentifier(token) {
-        
-        let duplicate = function (element) {
-            return token.word.toLowerCase() == element.token.word.toLowerCase() && element.level == level
-        }
-        if (identifiers.some(duplicate)) {
-            socket.emit('semanticError', 'Error: Duplicate identifier: ' + token.word + ' - at line: ' + token.line)
+
+        if (identifiers.some(element => (token.word.toLowerCase() == element.token.word.toLowerCase() && element.level == level))) {
+            errors.push('semanticError', 'Error: Duplicate identifier: ' + token.word + ' - at line: ' + token.line)
             return true
         } else {
             return false
         }
     }
 
-    function removeByLevel(l) {
+    function duplicateProcedure(token) {
         debugger
-        for (let i = identifiers.length-1; i > 0; i--) {
+
+        if (identifiers.some(element => (token.word.toLowerCase() == element.token.word.toLowerCase() && element.token.category == 'procedure'))) {
+            errors.push('semanticError', 'Error: Procedure: ' + token.word + ' was already declared - at line: ' + token.line)
+            return true
+        } else {
+            return false
+        }
+
+    }
+
+    function removeByLevel(l) {
+        for (let i = identifiers.length - 1; i > 0; i--) {
 
             if (identifiers[i].level == l) {
 
@@ -125,7 +163,7 @@ module.exports = function (tokenStack, socket) {
 
         if (tk != undefined) {
             if (tk.type == 'integer' && tokenStack[index + 1].token == '48') {
-                socket.emit('semanticError', 'Error: Invalid attribution at line: ' + tk.line + '. Identifier: ' + tk.word + ' is declared as integer')
+                errors.push('semanticError', 'Error: Invalid attribution at line: ' + tk.line + '. Identifier: ' + tk.word + ' is declared as integer')
             }
         }
     }
@@ -160,7 +198,7 @@ module.exports = function (tokenStack, socket) {
         } else if (tokenStack[index - 1].token == '26' && tokenStack[index + 1].token == '26') {
             return true
         } else {
-            socket.emit('semanticError', 'Error: Invalid operation ate line: ' + tokenStack[index].line)
+            errors.push('semanticError', 'Error: Invalid operation ate line: ' + tokenStack[index].line)
         }
     }
 
@@ -236,7 +274,7 @@ module.exports = function (tokenStack, socket) {
         }
 
         else if (returnLastLevel(tokenLevel) == 'procedure') {
-            
+
             if (token.word.toLowerCase() == 'begin' && tokenStack[index + 1].word.toLowerCase() == 'begin') {
                 end = true
             }
@@ -296,7 +334,7 @@ module.exports = function (tokenStack, socket) {
                 if (token.word.toLowerCase() != 'begin' && token.word.toLowerCase() != 'procedure') {
 
                     if (!duplicateIdentifier(token)) {
-                        if( tokenTypes.isIdentifier(token.token)){
+                        if (tokenTypes.isIdentifier(token.token)) {
                             token.type = verifyVar(token)
                             identifierDeclaration(token)
                         }
@@ -305,29 +343,24 @@ module.exports = function (tokenStack, socket) {
                 } else {
                     category = ''
                 }
-            }          
-            else if (category == 'procedure') {
-                if (token.token == "25" && tokenStack[index+1].token == "36") {
-                    if (!duplicateIdentifier(token)) {
-                    level--
-                    identifierDeclaration(token)
-                    level++
+            } else if (category == 'procedure') {
+                if (token.token == "25" && tokenStack[index + 1].token == "36") {
+                    if (!duplicateProcedure(token)) {
+                        level--
+                        identifierDeclaration(token)
+                        level++
                     }
-                } else if(token.token == "25" && tokenStack[index+1].token == "39") {
+                } else if (token.token == "25" && tokenStack[index + 1].token == "39") {
                     if (!duplicateIdentifier(token)) {
-                        if( tokenTypes.isIdentifier(token.token)){
+                        if (tokenTypes.isIdentifier(token.token)) {
                             token.type = 'integer'
                             identifierDeclaration(token)
                         }
+                    } else {
+                        category = ''
+                    }
                 }
-                    else {
-                    category = ''
-                }
-            }
-            } 
-            
-            
-            else if (category == 'program') {
+            } else if (category == 'program') {
 
                 if (token.token != ";") {
                     identifierDeclaration(token)
@@ -339,24 +372,26 @@ module.exports = function (tokenStack, socket) {
         }
 
         if (tokenTypes.isIdentifier(token.token) && category == '') {
-            identifierExists(token, level)
-        }
-
-        if (tokenTypes.isOperation(token.token)) {
+            if (procedureCall(token)) {
+            }
+            else
+                identifierExists(token, level)
+        } else if (tokenTypes.isOperation(token.token)) {
             verifyOperations()
-        }
-        if (isAttribution(token.token)) {
+        } else if (isAttribution(token.token)) {
             verifyAttribution(token, level)
         }
+
 
         index++
 
 
     });
-
-    //console.log(identifiers)
     identifiers = []
     level = -1
     index = 0
+    
+    return errors
+    errors = []
 
 }

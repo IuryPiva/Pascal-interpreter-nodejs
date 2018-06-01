@@ -21,7 +21,7 @@ module.exports = function (tokenStack) {
         derivateStack.shift()
         tokenStack.shift()
       } else {
-        erros.push({ error : `Error on row: ${entry.line} - ${derivate.token} is terminal and different of ${entry.token}`})
+        erros.push({ error : `Error on line: ${entry.line} - ${entry.word} is expected and ${derivate.word} was found`})
          
         return erros
       }
