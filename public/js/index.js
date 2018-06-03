@@ -16,7 +16,7 @@ function run() {
 
 socket.on('doneCompiling', function (data) {
   insertDataTable(data.stack)
-  if (data.parsedStack.length > 0 || data.semanticStack > 0 ) {
+  if (data.parsedStack.length > 0 ) {
 
     data.parsedStack.forEach(element => {
       var html = '';
@@ -24,12 +24,15 @@ socket.on('doneCompiling', function (data) {
       insertDataConsole(html)
     });
 
+  } else if (data.semanticStack.length > 0 ) {
+
     data.semanticStack.forEach(element => {
       var html = '';
-      html = "<h6>" + currentDate() + " - " + element.error + "</h6>"
+      html = "<h6>" + currentDate() + " - " + element + "</h6>"
       insertDataConsole(html)
     });
-  } else {
+
+  }else {
     html = "<h6>" + currentDate() + " - " + data.parsedStack.success + "</h6>"
 
     insertDataConsole(html)

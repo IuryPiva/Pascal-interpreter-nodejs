@@ -25,7 +25,7 @@ module.exports = function (tokenStack, socket) {
         if (identifiers.some(even)) {
             return true
         } else {
-            errors.push('semanticError', 'Error: Identifier: ' + newIdentifier.word + ' does not exist in this scope')
+            errors.push('Error: Identifier: ' + newIdentifier.word + ' does not exist in this scope')
         }
 
 
@@ -43,12 +43,11 @@ module.exports = function (tokenStack, socket) {
             if (tk = returnIdentifier(token)) {
                 l = index + 1
                 if (tk.token.category == 'procedure') {
-                    debugger
                     while (tokenStack[l].token != '47') {
                         if (tokenStack[l].token == '25') {
                             tk = returnIdentifier(tokenStack[l])
                             if (tk.token.category == 'label') {
-                                errors.push('semanticError', 'Error: Invalid parameter at procedure ' + token.word + '. At line ' + token.line)
+                                errors.push('Error: Invalid parameter at procedure ' + token.word + '. At line ' + token.line)
                             }
 
                         }
@@ -79,14 +78,14 @@ module.exports = function (tokenStack, socket) {
         if (identifiers.find(rola)) {
             return identifiers.find(rola)
         } else {
-            errors.push('semanticError', 'Error: Identifier: ' + token.word + ' does not exist in this scope. At line: ' + token.line)
+            errors.push('Error: Identifier: ' + token.word + ' does not exist in this scope. At line: ' + token.line)
         }
     }
 
     function duplicateIdentifier(token) {
 
         if (identifiers.some(element => (token.word.toLowerCase() == element.token.word.toLowerCase() && element.level == level))) {
-            errors.push('semanticError', 'Error: Duplicate identifier: ' + token.word + ' - at line: ' + token.line)
+            errors.push('Error: Duplicate identifier: ' + token.word + ' - at line: ' + token.line)
             return true
         } else {
             return false
@@ -94,10 +93,8 @@ module.exports = function (tokenStack, socket) {
     }
 
     function duplicateProcedure(token) {
-        debugger
-
         if (identifiers.some(element => (token.word.toLowerCase() == element.token.word.toLowerCase() && element.token.category == 'procedure'))) {
-            errors.push('semanticError', 'Error: Procedure: ' + token.word + ' was already declared - at line: ' + token.line)
+            errors.push('Error: Procedure: ' + token.word + ' was already declared - at line: ' + token.line)
             return true
         } else {
             return false
@@ -163,7 +160,7 @@ module.exports = function (tokenStack, socket) {
 
         if (tk != undefined) {
             if (tk.type == 'integer' && tokenStack[index + 1].token == '48') {
-                errors.push('semanticError', 'Error: Invalid attribution at line: ' + tk.line + '. Identifier: ' + tk.word + ' is declared as integer')
+                errors.push('Error: Invalid attribution at line: ' + tk.line + '. Identifier: ' + tk.word + ' is declared as integer')
             }
         }
     }
@@ -198,7 +195,7 @@ module.exports = function (tokenStack, socket) {
         } else if (tokenStack[index - 1].token == '26' && tokenStack[index + 1].token == '26') {
             return true
         } else {
-            errors.push('semanticError', 'Error: Invalid operation ate line: ' + tokenStack[index].line)
+            errors.push('Error: Invalid operation ate line: ' + tokenStack[index].line)
         }
     }
 
@@ -390,7 +387,6 @@ module.exports = function (tokenStack, socket) {
     identifiers = []
     level = -1
     index = 0
-    
     return errors
     errors = []
 
