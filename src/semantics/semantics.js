@@ -10,11 +10,12 @@ let end = false
 let index = 0
 let arrayToken = false
 let arrayVar = []
-let errors= []
+
 
 
 module.exports = function (tokenStack, socket) {
 
+    const errors = []
 
     function identifierExists(newIdentifier, level) {
 
@@ -43,13 +44,15 @@ module.exports = function (tokenStack, socket) {
             if (tk = returnIdentifier(token)) {
                 l = index + 1
                 if (tk.token.category == 'procedure') {
-                    while (tokenStack[l].token != '47') {
+                    while (tokenStack[l].token != '47' && tokenStack[l].token != '7') {
                         if (tokenStack[l].token == '25') {
                             tk = returnIdentifier(tokenStack[l])
                             if (tk.token.category == 'label') {
                                 errors.push('Error: Invalid parameter at procedure ' + token.word + '. At line ' + token.line)
                             }
 
+                        } else if(!validParameters(tokenStack[l].token)) {
+                                errors.push('Error: Invalid parameter at procedure ' + tokenStack[l].word + '. At line ' + tokenStack[l].line)
                         }
                         l++
                     }
@@ -58,6 +61,7 @@ module.exports = function (tokenStack, socket) {
         }
 
     }
+
     function isAttribution(token) {
         if (token == '38') {
             return true
@@ -146,22 +150,14 @@ module.exports = function (tokenStack, socket) {
     }
 
     function verifyAttribution() {
-        tk = ''
-        l = index - 1
-        if (tokenStack[index - 1].token == '35') {
-            while (tokenStack[l].token != '25') {
-                l--
+        arr = ['25', '26', '37', '36', '32', '33', '30', '43', '45', '44', '40', '41', '42']
+        l = index + 1
+        while(tokenStack[l].token != '47' ) {
+            debugger
+            if(!arr.some(element => (tokenStack[l].token == element))) {
+                errors.push('Error: Invalid attribution at line: ' + tokenStack[l].line + '. Identifier: ' + tokenStack[l].word + ' is declared as integer')
             }
-            tk = returnIdentifier(tokenStack[l])
-        } else {
-            tk = returnIdentifier(tokenStack[index - 1])
-        }
-
-
-        if (tk != undefined) {
-            if (tk.type == 'integer' && tokenStack[index + 1].token == '48') {
-                errors.push('Error: Invalid attribution at line: ' + tk.line + '. Identifier: ' + tk.word + ' is declared as integer')
-            }
+            l++
         }
     }
 
@@ -176,28 +172,8 @@ module.exports = function (tokenStack, socket) {
 
         }
     }
+    
 
-    function verifyOperations() {
-
-        if (tokenStack[index - 1].token == '25' && tokenStack[index + 1].token == '25') {
-            first = returnIdentifier(tokenStack[index - 1])
-            second = returnIdentifier(tokenStack[index + 1])
-            if (first != undefined && second != undefined && first.type == 'integer' && second.type == 'integer')
-                return true
-        } else if (tokenStack[index - 1].token == '25' && tokenStack[index + 1].token == '26') {
-            first = returnIdentifier(tokenStack[index - 1])
-            if (first != undefined && first.type == 'integer')
-                return true
-        } else if (tokenStack[index + 1].token == '25' && tokenStack[index - 1].token == '26') {
-            second = returnIdentifier(tokenStack[index + 1])
-            if (second != undefined && second.type == 'integer')
-                return true
-        } else if (tokenStack[index - 1].token == '26' && tokenStack[index + 1].token == '26') {
-            return true
-        } else {
-            errors.push('Error: Invalid operation ate line: ' + tokenStack[index].line)
-        }
-    }
 
     tokenStack.forEach(token => {
         if (token.word.toLowerCase() == 'program' || token.word.toLowerCase() == 'case' || token.word.toLowerCase() == 'procedure' || token.word.toLowerCase() == 'if' || token.word.toLowerCase() == 'while' || token.word.toLowerCase() == 'for') {
@@ -373,10 +349,8 @@ module.exports = function (tokenStack, socket) {
             }
             else
                 identifierExists(token, level)
-        } else if (tokenTypes.isOperation(token.token)) {
-            verifyOperations()
         } else if (isAttribution(token.token)) {
-            verifyAttribution(token, level)
+            verifyAttribution()
         }
 
 
@@ -384,10 +358,10 @@ module.exports = function (tokenStack, socket) {
 
 
     });
+    debugger
     identifiers = []
     level = -1
     index = 0
     return errors
-    errors = []
 
 }

@@ -123,7 +123,7 @@ module.exports = {
   },
   isOperation: function(token){
     
-    let arr = [32, 33, 30, 43, 45, 44, 40, 41, 42]
+    let arr = [32, 33, 30, 43, 45, 44, 40, 41, 42, 36, 37]
     
       let even = function (element) {
       let tk = parseInt(token)
