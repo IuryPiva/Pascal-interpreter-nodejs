@@ -1,21 +1,19 @@
 const tokenTypes = require('../utils/token-types')
-let level = -1
-let category = ""
-let identifiers = []
-let lastToken
-let tokenLevel = []
-let lastLevel = ""
-let begin = false
-let end = false
-let index = 0
-let arrayToken = false
-let arrayVar = []
-
-
 
 module.exports = function (tokenStack, socket) {
 
     const errors = []
+    let category = ""
+    let identifiers = []
+    let level = -1
+    let lastToken
+    let tokenLevel = []
+    let lastLevel = ""
+    let begin = false
+    let end = false
+    let index = 0
+    let arrayToken = false
+    let arrayVar = []
 
     function identifierExists(newIdentifier, level) {
 
@@ -51,8 +49,8 @@ module.exports = function (tokenStack, socket) {
                                 errors.push('Error: Invalid parameter at procedure ' + token.word + '. At line ' + token.line)
                             }
 
-                        } else if(!validParameters(tokenStack[l].token)) {
-                                errors.push('Error: Invalid parameter at procedure ' + tokenStack[l].word + '. At line ' + tokenStack[l].line)
+                        } else if (!validParameters(tokenStack[l].token)) {
+                            errors.push('Error: Invalid parameter at procedure ' + tokenStack[l].word + '. At line ' + tokenStack[l].line)
                         }
                         l++
                     }
@@ -152,9 +150,8 @@ module.exports = function (tokenStack, socket) {
     function verifyAttribution() {
         arr = ['25', '26', '37', '36', '32', '33', '30', '43', '45', '44', '40', '41', '42']
         l = index + 1
-        while(tokenStack[l].token != '47' ) {
-            debugger
-            if(!arr.some(element => (tokenStack[l].token == element))) {
+        while (tokenStack[l].token != '47' && tokenStack[l].token != '28' && tokenStack[l].token != '6') {
+            if (!arr.some(element => (tokenStack[l].token == element))) {
                 errors.push('Error: Invalid attribution at line: ' + tokenStack[l].line + '. Identifier: ' + tokenStack[l].word + ' is declared as integer')
             }
             l++
@@ -172,7 +169,7 @@ module.exports = function (tokenStack, socket) {
 
         }
     }
-    
+
 
 
     tokenStack.forEach(token => {
@@ -358,10 +355,7 @@ module.exports = function (tokenStack, socket) {
 
 
     });
-    debugger
-    identifiers = []
-    level = -1
-    index = 0
+
     return errors
 
 }
