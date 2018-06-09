@@ -147,6 +147,20 @@ module.exports = function (tokenStack, socket) {
 
     }
 
+    function verifyArray() {
+        arr = ['26', '25', '34']
+
+        
+        let i = index
+        while(tokenStack[i].token != '35'){
+            debugger
+            if(!arr.some(element => (tokenStack[i].token == element))){
+                errors.push('Error: Invalid array atribution at line: ' + tokenStack[i].line + '. You should specify an index.')
+            }
+            i++
+        }
+    }
+
     function verifyAttribution() {
         arr = ['25', '26', '37', '36', '32', '33', '30', '43', '45', '44', '40', '41', '42']
         l = index + 1
@@ -344,8 +358,14 @@ module.exports = function (tokenStack, socket) {
         if (tokenTypes.isIdentifier(token.token) && category == '') {
             if (procedureCall(token)) {
             }
-            else
-                identifierExists(token, level)
+            else {
+                if(identifierExists(token, level)) {
+                   let tk = returnIdentifier(token)
+                    if(tk.token.type == 'array'){
+                        verifyArray()
+                    }
+                }
+            }
         } else if (isAttribution(token.token)) {
             verifyAttribution()
         }

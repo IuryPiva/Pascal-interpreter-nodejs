@@ -252,3 +252,21 @@ BEGIN
 END.
 
 
+Exemplo 9: -----------------------------------------------------------------------------------------------
+(*TESTE 9 - Utilizando Arrays*)
+PROGRAM TESTE123;
+	VAR 
+		 X, Y, Z : INTEGER;
+		array_a : ARRAY[0..20] OF INTEGER;
+BEGIN
+	W := 10;
+	array_a[0] := W;
+	array_a[1] := 20;
+	
+	FOR x := y > 2 TO 20 DO
+	BEGIN
+		array_a[x] := 2;
+	END;
+	
+
+END.
